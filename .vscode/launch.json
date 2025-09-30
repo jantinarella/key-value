@@ -1,0 +1,31 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug API Gateway",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/services/api-gateway/cmd/main.go",
+            "cwd": "${workspaceFolder}/services/api-gateway/cmd/",
+            "env": {},
+            "args": [],
+            "showLog": true,
+            "console": "integratedTerminal",
+            "stopOnEntry": false
+        },
+        {
+            "name": "Debug Key-Value Service",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/services/key-value/cmd/main.go",
+            "cwd": "${workspaceFolder}/services/key-value/cmd/",
+            "env": {},
+            "args": [],
+            "showLog": true,
+            "console": "integratedTerminal",
+            "stopOnEntry": false
+        }
+    ]
+}

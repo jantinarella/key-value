@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package keyvalue;
+
+option go_package = "key-value/proto/keyvalue";
+
+// KeyValueService defines the gRPC service for key-value operations
+service KeyValueService {
+  // Get retrieves a value by key
+  rpc Get(GetRequest) returns (GetResponse);
+
+  // Set stores a key-value pair
+  rpc Set(SetRequest) returns (SetResponse);
+
+  // Delete removes a key-value pair
+  rpc Delete(DeleteRequest) returns (DeleteResponse);
+
+  // Health check for service availability
+  rpc Health(HealthRequest) returns (HealthResponse);
+}
+
+// Request message for Get operation
+message GetRequest {
+  string key = 1;
+}
+
+// Response message for Get operation
+message GetResponse {
+  string value = 1;
+  bool found = 2;
+  string error = 3;
+}
+
+// Request message for Set operation
+message SetRequest {
+  string key = 1;
+  string value = 2;
+}
+
+// Response message for Set operation
+message SetResponse {
+  bool success = 1;
+  string error = 2;
+}
+
+// Request message for Delete operation
+message DeleteRequest {
+  string key = 1;
+}
+
+// Response message for Delete operation
+message DeleteResponse {
+  bool success = 1;
+  string error = 2;
+}
+
+// Request message for Health check
+message HealthRequest {}
+
+// Response message for Health check
+message HealthResponse {
+  string status = 1;
+  int64 timestamp = 2;
+}

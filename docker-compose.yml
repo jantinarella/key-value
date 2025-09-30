@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  key-value-service:
+    build:
+      context: .
+      dockerfile: services/key-value/Dockerfile
+    ports:
+      - "50051:50051"
+    environment:
+      - PORT=50051
+
+  api-gateway:
+    build:
+      context: .
+      dockerfile: services/api-gateway/Dockerfile
+    ports:
+      - "8888:8888"
+    environment:
+      - PORT=8888
+      - KV_SERVICE_ADDR=key-value-service:50051
+      - API_KEY=my-secret-key
+      - ENVIRONMENT=dev
+    depends_on:
+      - key-value-service
