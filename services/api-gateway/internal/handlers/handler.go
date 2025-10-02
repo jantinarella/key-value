@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"context"
-	"key-value/client"
 	"key-value/shared/models"
 )
 
@@ -20,12 +19,6 @@ type Handler struct {
 }
 
 func NewHandler(kvstoreClient KVStoreInterface) *Handler {
-	return &Handler{
-		kvstoreClient: kvstoreClient,
-	}
-}
-
-func NewHandlerWithClient(kvstoreClient *client.KVStoreClient) *Handler {
 	return &Handler{
 		kvstoreClient: kvstoreClient,
 	}

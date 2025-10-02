@@ -36,7 +36,7 @@ func SetupRoutes(e *echo.Echo, config *config.Config) error {
 	}
 
 	// Initialize handlers
-	handler := handlers.NewHandlerWithClient(kvstoreClient)
+	handler := handlers.NewHandler(kvstoreClient)
 
 	// Value endpoints
 	v1.GET("/values/:key", handler.GetValueByKey)
