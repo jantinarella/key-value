@@ -67,3 +67,12 @@ protoc --go_out=. --go_opt=module=key-value --go-grpc_out=. --go-grpc_opt=module
 - There is no persistance between restarts
 - Only surface level security. Hardcoded secrets in docker files. No auth between interservice communication.
 - Everything is commited to the repo to make delivery easier (env files, docker files with secrets, and debug configurations)
+
+<details>
+<summary>Mistakes</summary>
+
+- Handler constructor confusion There were two and one was not using the interface. Naming - fixed
+- Race condition in tests - NOT FIXED
+- KVStore client not getting closed. Moved it to main and passed to the router. Defer close - fixed
+
+</details>

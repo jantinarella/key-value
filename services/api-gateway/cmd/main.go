@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"key-value/client"
 	"key-value/services/api-gateway/internal/config"
 	"key-value/services/api-gateway/internal/router"
 	"net/http"
@@ -23,12 +24,20 @@ func main() {
 	e := echo.New()
 	e.Logger.SetLevel(log.INFO)
 
+	// Create a new KVStoreClient
+	kvstoreClient, err := client.NewKVStoreClient(config.KVServiceAddr)
+	if err != nil {
+		e.Logger.Fatal("Failed to create KVStoreClient: %v", err)
+
+	}
+	defer kvstoreClient.Close()
+
 	// Use middleware
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
 	// Setup routes
-	err := router.SetupRoutes(e, config)
+	err = router.SetupRoutes(e, config, kvstoreClient)
 	if err != nil {
 		e.Logger.Fatal("Failed to setup routes: ", err)
 	}

@@ -1,7 +1,6 @@
 package router
 
 import (
-	"key-value/client"
 	"key-value/services/api-gateway/internal/config"
 	"key-value/services/api-gateway/internal/handlers"
 	"net/http"
@@ -9,7 +8,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func SetupRoutes(e *echo.Echo, config *config.Config) error {
+func SetupRoutes(e *echo.Echo, config *config.Config, kvstoreClient handlers.KVStoreInterface) error {
 
 	// Health check endpoint
 	e.GET("/health", func(c echo.Context) error {
@@ -27,13 +26,6 @@ func SetupRoutes(e *echo.Echo, config *config.Config) error {
 				return next(c)
 			}
 		})
-
-	// Create a new KVStoreClient
-	kvstoreClient, err := client.NewKVStoreClient(config.KVServiceAddr)
-	if err != nil {
-		e.Logger.Errorf("Failed to create KVStoreClient: %v", err)
-		return err
-	}
 
 	// Initialize handlers
 	handler := handlers.NewHandler(kvstoreClient)
